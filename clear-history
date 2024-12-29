@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-checkId () {
+checkId() {
     if [ $(id -u) == 0 ]; then
         echo
         echo "Do not run this script as root."
@@ -9,30 +9,40 @@ checkId () {
 }
 
 
-help () {
+help() {
     echo "Usage: clear-history [options]"
     echo ""
     echo "Options:"
     echo "    -h, --help                  Display this help message."
     echo "    -v, --version               Display version information."
+    echo "    -b, --bash                  Clear bash history."
     echo ""
     echo "Example:"
     echo "    $ clear-history"
 }
 
 
-version () {
+version() {
     echo "clear-history Version 1.0"
     echo "Licensed under the terms of the GNU General Public License."
 }
 
 
-clearAll () {
+bashHistory() {
+    if [ -e ~/.bash_history ]; then
+        ls -a ~/ | grep history | grep -e bash | while read line; do cat /dev/null > $line; done
+    else
+        echo "Error, ~/.bash_history does not exist."
+    fi
+}
+
+
+clearAll() {
     ls -a ~/ | grep history | grep -e bash -e zsh -e fish | while read line; do cat /dev/null > $line; done
 }
 
 
-main () {
+main() {
     checkId
     while [[ "$#" -gt 0 ]]; do
         case $1 in
@@ -41,6 +51,9 @@ main () {
             ;;
         -v|--version)
             version
+            ;;
+        -b|--bash)
+            bashHistory
             ;;
         *)
             echo "Unknown option: $1" >&2
