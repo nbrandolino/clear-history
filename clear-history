@@ -8,6 +8,7 @@ checkId () {
     fi
 }
 
+
 help () {
     echo "Usage: clear-history [options]"
     echo ""
@@ -16,13 +17,20 @@ help () {
     echo "    -v, --version               Display version information."
     echo ""
     echo "Example:"
-    echo "    $ clear-history "
+    echo "    $ clear-history"
 }
+
 
 version () {
     echo "clear-history Version 1.0"
     echo "Licensed under the terms of the GNU General Public License."
 }
+
+
+clearAll () {
+    ls -a ~/ | grep history | while read line; do cat /dev/null > $line; done
+}
+
 
 main () {
     checkId
@@ -40,6 +48,8 @@ main () {
         esac
         shift
     done
+    clearAll
 }
+
 
 main "$@"
