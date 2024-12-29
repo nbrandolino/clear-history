@@ -28,7 +28,7 @@ version () {
 
 
 clearAll () {
-    ls -a ~/ | grep history | while read line; do cat /dev/null > $line; done
+    ls -a ~/ | grep history | grep -e bash -e zsh -e fish | while read line; do cat /dev/null > $line; done
 }
 
 
