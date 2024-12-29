@@ -15,10 +15,12 @@ help() {
     echo "Options:"
     echo "    -h, --help                  Display this help message."
     echo "    -v, --version               Display version information."
+    echo "    -a, --all                   Clear all cli history."
     echo "    -b, --bash                  Clear bash history."
+    echo "    -z, --zsh                   Clear zsh history."
     echo ""
     echo "Example:"
-    echo "    $ clear-history"
+    echo "    $ clear-history -a"
 }
 
 
@@ -28,17 +30,26 @@ version() {
 }
 
 
+allHistory() {
+    ls -a ~/ | grep history | grep -e bash -e zsh | while read line; do cat /dev/null > ~/$line; done
+}
+
+
 bashHistory() {
     if [ -e ~/.bash_history ]; then
-        ls -a ~/ | grep history | grep -e bash | while read line; do cat /dev/null > $line; done
+        ls -a ~/ | grep history | grep -e bash | while read line; do cat /dev/null > ~/$line; done
     else
         echo "Error, ~/.bash_history does not exist."
     fi
 }
 
 
-clearAll() {
-    ls -a ~/ | grep history | grep -e bash -e zsh -e fish | while read line; do cat /dev/null > $line; done
+zshHistory() {
+    if [ -e ~/.zsh_history ]; then
+        ls -a ~/ | grep history | grep -e zsh | while read line; do cat /dev/null > ~/$line; done
+    else
+        echo "Error, ~/.zsh_history does not exist."
+    fi
 }
 
 
@@ -52,8 +63,14 @@ main() {
         -v|--version)
             version
             ;;
+        -a|--all)
+            allHistory
+            ;;
         -b|--bash)
             bashHistory
+            ;;
+        -z|--zsh)
+            zshHistory
             ;;
         *)
             echo "Unknown option: $1" >&2
@@ -61,7 +78,6 @@ main() {
         esac
         shift
     done
-    clearAll
 }
 
 
