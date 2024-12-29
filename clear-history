@@ -9,11 +9,19 @@ checkId () {
 }
 
 help () {
-    echo "help function"
+    echo "Usage: clear-history [options]"
+    echo ""
+    echo "Options:"
+    echo "    -h, --help                  Display this help message."
+    echo "    -v, --version               Display version information."
+    echo ""
+    echo "Example:"
+    echo "    $ clear-history "
 }
 
 version () {
-    echo "version function"
+    echo "clear-history Version 1.0"
+    echo "Licensed under the terms of the GNU General Public License."
 }
 
 main () {
