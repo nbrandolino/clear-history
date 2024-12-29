@@ -8,8 +8,30 @@ checkId () {
     fi
 }
 
-main() {
-    checkId
+help () {
+    echo "help function"
 }
 
-main
+version () {
+    echo "version function"
+}
+
+main () {
+    checkId
+    while [[ "$#" -gt 0 ]]; do
+        case $1 in
+        -h|--help)
+            help
+            ;;
+        -v|--version)
+            version
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            ;;
+        esac
+        shift
+    done
+}
+
+main "$@"
