@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ls -a ~/ | grep history | while read line; do cat /dev/null > $line; done
