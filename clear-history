@@ -1,3 +1,15 @@
 #!/usr/bin/env bash
 
-ls -a ~/ | grep history | while read line; do cat /dev/null > $line; done
+checkId () {
+    if [ $(id -u) == 0 ]; then
+        echo
+        echo "Do not run this script as root."
+        echo
+    fi
+}
+
+main() {
+    checkId
+}
+
+main
