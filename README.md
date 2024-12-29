@@ -2,7 +2,7 @@
 
 ## About
 
-  This software is a simple bash script that clears all commandline history (bash, zsh, etc.).
+  This software is a simple bash script that clears all command line history (bash, zsh, etc.).
 
 
 Installation
@@ -11,10 +11,28 @@ Installation
     $ cd ./clear-history
     $ make install
 
-Quick start
------------
+Usage
+-----
 
-    $ clear-history
+    $ clear-history [options]
+
+Help
+----
+    Options:
+        -h, --help                  Display this help message.
+        -v, --version               Display version information.
+        -a, --all                   Clear all cli history.
+        -b, --bash                  Clear bash history.
+        -z, --zsh                   Clear zsh history.
+
+    Example:
+        $ clear-history -a
+
+Uninstall
+------------
+
+    $ cd ./clear-history
+    $ make uninstall
 
 ## License
 
