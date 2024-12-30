@@ -55,29 +55,33 @@ zshHistory() {
 
 main() {
     checkId
-    while [[ "$#" -gt 0 ]]; do
-        case $1 in
-        -h|--help)
-            help
-            ;;
-        -v|--version)
-            version
-            ;;
-        -a|--all)
-            allHistory
-            ;;
-        -b|--bash)
-            bashHistory
-            ;;
-        -z|--zsh)
-            zshHistory
-            ;;
-        *)
-            echo "Unknown option: $1" >&2
-            ;;
-        esac
-        shift
-    done
+    if [ "$#" -gt 0 ]; then
+        while [[ "$#" -gt 0 ]]; do
+            case $1 in
+            -h|--help)
+                help
+                ;;
+            -v|--version)
+                version
+                ;;
+            -a|--all)
+                allHistory
+                ;;
+            -b|--bash)
+                bashHistory
+                ;;
+            -z|--zsh)
+                zshHistory
+                ;;
+            *)
+                echo "Unknown option: $1" >&2
+                ;;
+            esac
+            shift
+        done
+    else
+        echo "Error, option needed."
+    fi
 }
 
 
