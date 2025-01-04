@@ -1,12 +1,9 @@
-PREFIX = /usr
+TARGET = clear-history
+DESTDIR = /usr/bin/
 
 all:
 	@echo Run \'make install\' to install clear-history.
-
 install:
-	@mkdir -p $(DESTDIR)$(PREFIX)/bin
-	@cp -p clear-history $(DESTDIR)$(PREFIX)/bin/clear-history
-	@chmod 755 $(DESTDIR)$(PREFIX)/bin/clear-history
-
+	@cp -p $(TARGET) $(DESTDIR)$(TARGET)
 uninstall:
-	@rm -rf $(DESTDIR)$(PREFIX)/bin/clear-history
+	@rm -rf $(DESTDIR)$(TARGET)
