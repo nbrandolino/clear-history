@@ -1,88 +1,79 @@
 #!/usr/bin/env bash
 
+# check if the script is not being run as root
 checkId() {
     if [ $(id -u) == 0 ]; then
-        echo
         echo "Do not run this script as root."
-        echo
+        exit 1
     fi
 }
 
-
+# display help message
 help() {
-    echo "Usage: clear-history [options]"
-    echo ""
-    echo "Options:"
-    echo "    -h, --help                  Display this help message."
-    echo "    -v, --version               Display version information."
-    echo "    -a, --all                   Clear all cli history."
-    echo "    -b, --bash                  Clear bash history."
-    echo "    -z, --zsh                   Clear zsh history."
-    echo ""
-    echo "Example:"
-    echo "    $ clear-history -a"
+    cat << EOF
+Usage: clear-history [options]
+
+Options:
+    -h, --help          Display this help message.
+    -v, --version       Display version information.
+    -a, --all           Clear all shell histories (bash and zsh).
+    -b, --bash          Clear bash history only.
+    -z, --zsh           Clear zsh history only.
+
+Examples:
+    clear-history -a
+    clear-history --bash
+EOF
 }
 
-
+# display version information
 version() {
-    echo "clear-history Version 1.0"
-    echo "Licensed under the terms of the GNU General Public License."
+    echo "clear-history Version 1.1"
+    echo "Licensed under the GNU General Public License."
 }
 
+# clear a specific history file
+clearHistoryFile() {
+    local file="$1"
+    : > "$file" 2>/dev/null || echo "Error: Cannot clear $file or file does not exist."
+}
 
+# clear all cli histories
 allHistory() {
-    ls -a ~/ | grep history | grep -e bash -e zsh | while read line; do cat /dev/null > ~/$line; done
+    clearHistoryFile ~/.bash_history
+    clearHistoryFile ~/.zsh_history
 }
 
-
+# clear bash history only
 bashHistory() {
-    if [ -e ~/.bash_history ]; then
-        ls -a ~/ | grep history | grep -e bash | while read line; do cat /dev/null > ~/$line; done
-    else
-        echo "Error, ~/.bash_history does not exist."
-    fi
+    clearHistoryFile ~/.bash_history
 }
 
-
+# clear zsh history only
 zshHistory() {
-    if [ -e ~/.zsh_history ]; then
-        ls -a ~/ | grep history | grep -e zsh | while read line; do cat /dev/null > ~/$line; done
-    else
-        echo "Error, ~/.zsh_history does not exist."
-    fi
+    clearHistoryFile ~/.zsh_history
 }
 
-
+# main function
 main() {
     checkId
-    if [ "$#" -gt 0 ]; then
-        while [[ "$#" -gt 0 ]]; do
-            case $1 in
-            -h|--help)
-                help
-                ;;
-            -v|--version)
-                version
-                ;;
-            -a|--all)
-                allHistory
-                ;;
-            -b|--bash)
-                bashHistory
-                ;;
-            -z|--zsh)
-                zshHistory
-                ;;
-            *)
-                echo "Unknown option: $1" >&2
-                ;;
-            esac
-            shift
-        done
-    else
-        echo "Error, option needed."
+    if [ "$#" -eq 0 ]; then
+        echo "Error: No option provided. Use --help for usage information."
+        exit 1
     fi
+
+    while [[ "$#" -gt 0 ]]; do
+        case "$1" in
+            -h|--help) help ;;
+            -v|--version) version ;;
+            -a|--all) allHistory ;;
+            -b|--bash) bashHistory ;;
+            -z|--zsh) zshHistory ;;
+            *) echo "Unknown option: $1"; exit 1 ;;
+        esac
+        shift
+    done
 }
 
-
+# call main with arguments
 main "$@"
