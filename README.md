@@ -1,58 +1,53 @@
 # clear-history
+`clear-history` is a simple bash script that clears all command line history (`Bash`, `Zsh`).
 
-## About
+## Usage
+```bash
+clear-history [options]
+```
 
-  This software is a simple bash script that clears all command line history (bash, zsh, etc.).
+### Options:
+- `-h, --help`: Display help message.
+- `-v, --version`: Display version information.
+- `-a, --all`: Clear all cli history.
+- `-b, --bash`: Clear bash history.
+- `-z, --zsh`: Clear zsh history.
 
+### Examples
+1. Clear all history:
+   ```bash
+   clear-history -a
+   ```
 
-Installation
-------------
+2. Clear Bash history:
+    ```bash
+    clear-history -b
+    ```
 
-    $ cd ./clear-history
-    $ make install
+3. Clear Zsh history:
+    ```bash
+    clear-history -z
+    ```
 
-Usage
------
+## Install
+```bash
+cd ./clear-history
+```
+```bash
+make install
+```
 
-    $ clear-history [options]
-
-Help
-----
-    Options:
-        -h, --help                  Display this help message.
-        -v, --version               Display version information.
-        -a, --all                   Clear all cli history.
-        -b, --bash                  Clear bash history.
-        -z, --zsh                   Clear zsh history.
-
-    Example:
-        $ clear-history -a
-
-Uninstall
-------------
-
-    $ cd ./clear-history
-    $ make uninstall
+## Uninstall
+```bash
+cd ./clear-history
+```
+```bash
+make uninstall
+```
 
 ## License
+This tool is licensed under the GNU General Public License (GPL). See ./LICENSE for more details.
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 3 of the License, or
-  any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-  See './LICENSE' for more information.
-
-## Original author
-
-  Nick Brandolino aka nbrandolino
-  nickbrandolino134@gmail.com
+## Contact
+nbrandolino
+nickbrandolino134@gmail.com
